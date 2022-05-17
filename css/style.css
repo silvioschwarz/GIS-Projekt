@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins";
+}
+
+.App-container {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+  align-items: center;
+}
+
+nav {
+  height: 70px;
+  display: flex;
+  padding: 20px 36px;
+  background-color: darksalmon;
+  color:antiquewhite;
+  box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
+}
+
+main {
+    text-align: center;
+}
+
+footer {
+  height: 70px;
+  background-color: blanchedalmond;
+  text-align: center;
+}
