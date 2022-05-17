@@ -399,6 +399,8 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./css/style.css\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
 var _Navbar = __webpack_require__(8);
 
 var _Navbar2 = _interopRequireDefault(_Navbar);

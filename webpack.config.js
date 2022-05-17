@@ -16,10 +16,17 @@ module.exports = {
         },
         "exclude": /node_modules/,
         "test": /\.js$/
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
       }
     ]
   },
   "entry": {
-    "index": "./index"
+    "index": "./src/index"
   }
 };
