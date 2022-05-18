@@ -1,5 +1,6 @@
 {
   "name": "project",
+  "homepage": "https://gitname.github.io/GIS-Projekt",
   "dependencies": {
     "leaflet": "^1.8.0",
     "ol": "^6.14.1",
