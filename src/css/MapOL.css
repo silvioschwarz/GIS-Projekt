@@ -5,9 +5,13 @@ html, body {
   height: 100%;
 }
 
-.mapOL {
-  position: relative;
-  top: 5%;
-  bottom: 0;
-  width: 10%;
+#map-OpenLayers {
+  height:50%;
+  width: 40%;
+ 
+}
+
+.mapOL{
+  margin: 0%;
+  margin-left: 5%;  
 }

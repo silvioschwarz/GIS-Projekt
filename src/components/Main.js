@@ -1,13 +1,15 @@
-import React from "react"
+import React from "react";
 import MapLeaflet from "./MapLeaflet";
 import MapOpenLayers from "./MapOpenLayers";
 
 export default function Main() {
-    return (
-        <main className="main-content">
-            <p>Main Content</p>
-            <MapLeaflet/>
-            <MapOpenLayers />
-        </main>
-    )
+  return (
+    <div>
+      <p>Main Content</p>
+      <div className="main-content">
+        <MapLeaflet />
+        <MapOpenLayers />
+      </div>
+    </div>
+  );
 }
