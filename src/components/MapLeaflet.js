@@ -3,13 +3,17 @@ import L from "leaflet";
 import {Map, TileLayer, Marker, Popup} from 'react-leaflet';
 import "../css/MapLeaflet.css";
 
+import geojsonObject from '../data/history-2022-05-01.json'
+
 
 export default class MapLeaflet extends Component { 
+    // geojsonObject.map()
+
   componentDidMount() {
     // create map
     this.map = L.map("map-Leaflet", {
-      center: [52.51404,13.4],
-      zoom: 16,
+      center: [52.395,13.04],
+      zoom: 15,
       layers: [
         L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
           attribution:
@@ -17,6 +21,9 @@ export default class MapLeaflet extends Component {
         })
       ]
     });
+
+    // console.log(geojsonObject)
+    // L.GeoJSON(geojsonObject);
 
     // add marker
     // this.marker = L.marker(this.props.markerPosition).addTo(this.map);

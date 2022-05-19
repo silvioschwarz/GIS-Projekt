@@ -7,14 +7,16 @@ import "ol/ol.css";
 import "../css/MapOL.css";
 import data from "../data/Standortverlauf/Semantic Location History/2022/2022_APRIL.json"
 import KML from "ol/format/KML";
+import { fromLonLat, get } from "ol/proj";
 
 import VectorSource from "ol/source/Vector";
 import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
 import GeoJSON from 'ol/format/GeoJSON';
 
 import geojsonObject from '../data/history-2022-05-01.json'
-
+// import dataKML from '../data/history-2022-05-01.kml';
 export default class MapOpenLayers extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -29,27 +31,35 @@ export default class MapOpenLayers extends React.Component {
       source: new OSM(),
     });
 
-    console.log(data);
+    // console.log(geojsonObject);
 
 
-    const vector = new VectorLayer({
+    const vectorKml = new VectorLayer({
       source: new VectorSource({
-        url: {data},
+        url:'../data/history-2022-05-01.kml',
         format: new KML(),
-      })
+      }),
+      zIndex:1000
     });
+
+    // console.log(vectorKml)
 
     const geojsonObj = new VectorLayer({
       source: new VectorSource({
-        features: new GeoJSON().readFeatures(geojsonObject),
-      })
+        features: new GeoJSON().readFeatures(geojsonObject,
+        {
+          featureProjection: get("EPSG:3857"),
+        }),
+      }
+      ),
+      zIndex:100
     });
 
-    // console.log(geojsonObj)
+    //  console.log(geojsonObj)
 
 
     const map = new Map({
-      layers: [osm],
+      layers: [geojsonObj, osm],
       target: document.getElementById("map-OpenLayers"),
       view: new View({
         center: transform([13.04, 52.395], "EPSG:4326", "EPSG:3857"),
