@@ -15,6 +15,7 @@ import GeoJSON from 'ol/format/GeoJSON';
 
 import geojsonObject from '../data/history-2022-05-01.json'
 // import dataKML from '../data/history-2022-05-01.kml';
+
 export default class MapOpenLayers extends React.Component {
 
   constructor(props) {
@@ -62,9 +63,9 @@ export default class MapOpenLayers extends React.Component {
       layers: [geojsonObj, osm],
       target: document.getElementById("map-OpenLayers"),
       view: new View({
-        center: transform([13.04, 52.395], "EPSG:4326", "EPSG:3857"),
+        center: transform([13.035,52.393], "EPSG:4326", "EPSG:3857"),
         projection: 'EPSG:3857',
-        zoom: 15,
+        zoom: 14,
       }),
     });
   }
