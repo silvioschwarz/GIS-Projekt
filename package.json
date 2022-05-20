@@ -2,15 +2,12 @@
   "name": "project",
   "homepage": "https://gitname.github.io/GIS-Projekt",
   "dependencies": {
-    "@mapbox/togeojson": "^0.16.0",
     "leaflet": "^1.8.0",
-    "leaflet-kml": "^1.0.1",
     "npm-check-updates": "^13.0.1",
     "ol": "^6.14.1",
     "react": "18.1.0",
     "react-dom": "18.1.0",
-    "react-leaflet": "^4.0.0",
-    "react-leaflet-kml": "^2.0.3"
+    "react-leaflet": "^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.18.0",
