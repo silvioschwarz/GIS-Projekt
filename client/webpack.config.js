@@ -1,7 +1,29 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
+  resolve: {
+    fallback: {
+        "fs": false,
+        "assert": false,
+        "util": false,
+        "dns": false,
+        "url": false,
+        "net": false,
+        "tls": false,
+        "pg-native": false,
+        "pg": false,
+        "crypto": false,
+        "path": false,
+        "stream": false,
+        "buffer": false,
+    },
+},
+experiments: {
+  topLevelAwait: true,
+},
+  // target:'node',
   output: {
     filename: "[name].pack.js",
     path: path.resolve(__dirname, 'dist'),
@@ -10,7 +32,9 @@ module.exports = {
     new HtmlWebPackPlugin({
     template: path.resolve( __dirname, 'public/index.html' ),
     filename: 'index.html'
- })
+ }),
+ // Or, for WebPack 4+:
+ new webpack.IgnorePlugin({ resourceRegExp: /^pg-native$/ })
  ],
   "module": {
     "rules": [
@@ -41,5 +65,6 @@ module.exports = {
   },
   "entry": {
     "index": "./src/index"
-  }
+  },
+  
 };
