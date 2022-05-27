@@ -9,7 +9,7 @@ import {
   Popup,
 } from "react-leaflet";
 import "../css/MapLeaflet.css";
-import geojsonObject from "../data/history-2022-05-01.json";
+import geojsonObject from "../../data/history-2022-05-01.json";
 
 export default function MapLeaflet() {
 

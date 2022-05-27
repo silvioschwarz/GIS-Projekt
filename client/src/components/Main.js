@@ -1,8 +1,6 @@
 import React from "react";
-// import MapLeaflet from "./MapLeaflet";
-import MapOpenLayers from "./MapOpenLayers";
-// import MapOpenLayersReact from "./MapOpenLayersReact.js.old";
-import MapOpenLayersReact from "./MapOpenLayersReactFunction";
+
+import MapOpenLayers from './MapOpenLayers'
 
 export default function Main() {
   return (
@@ -15,9 +13,7 @@ export default function Main() {
       <input type="submit"></input>
 
       <div className="main-content">
-        {/* <MapOpenLayers /> */}
-        <MapOpenLayersReact />
-
+        <MapOpenLayers />
       </div>
     </main>
   );
