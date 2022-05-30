@@ -2,6 +2,8 @@ import React, { useRef, useState, useEffect } from "react"
 import "./Map.css";
 import MapContext from "./MapContext";
 import * as ol from "ol";
+// import {defaults as defaultControls} from 'ol/control';
+
 
 const Map = ({ children, zoom, center }) => {
 	const mapRef = useRef();
@@ -13,6 +15,7 @@ const Map = ({ children, zoom, center }) => {
 			view: new ol.View({ zoom, center }),
 			layers: [],
 			controls: [],
+			// controls: defaultControls().extend([]),
 			overlays: []
 		};
 

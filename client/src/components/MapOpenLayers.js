@@ -6,10 +6,12 @@ import { Circle as CircleStyle, Fill, Stroke, Style } from "ol/style";
 import { osm, vector } from "./openLayers/Source";
 import { fromLonLat, get } from "ol/proj";
 import GeoJSON from "ol/format/GeoJSON";
-import { Controls, FullScreenControl } from "./openLayers/Controls";
+import { Controls, FullScreenControl, OverviewMapControl } from "./openLayers/Controls";
 
 // attributation: https://github.com/mbrown3321/openlayers-react-map
-
+import { 
+  OverviewMap
+} from 'ol/control'
 
 let styles = {
   MultiPolygon: new Style({
@@ -78,6 +80,7 @@ const MapOpenLayers = () => {
         </Layers>
         <Controls>
           <FullScreenControl />
+          <OverviewMapControl source={osm()}/>
         </Controls>
       </Map>
       <div>
