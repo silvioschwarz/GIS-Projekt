@@ -37,8 +37,16 @@ const geojsonObject = require("../data/GeoJSON/2022-05-20.json");
 
 const port = 4000;
 const geojsonObject2 = await fetch(`http://localhost:${port}/getGeoJSON`)
-  .then((res) => res.json())
-  .then((data) => data[0]["geojson"]);
+  .then((res) => { 
+    if (!res.ok) {
+      throw new Error('Network response was not OK');
+    }
+    return res.json()
+  })
+  .then((data) => data[0]["geojson"])
+  .catch(error => {
+    console.error('There has been a problem with your fetch operation:', error)
+  return geojsonObject});
 
 const MapOpenLayers = () => {
   const [center, setCenter] = useState([13.035, 52.397]);
