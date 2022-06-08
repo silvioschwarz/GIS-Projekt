@@ -1,9 +1,9 @@
-.ol-map{
+.ol-map {
   min-width: 600px;
   min-height: 500px;
   margin: 50px;
-  height: 500px;
-  width: "100%";
+  height: 50%;
+  width: 100%;
 }
 
 .ol-control {
@@ -18,7 +18,6 @@
   right: 0.5em;
 }
 
-.ol-overviewmap,
 .ol-overviewmap.ol-uncollapsible {
   bottom: auto;
   right: auto;
@@ -26,27 +25,20 @@
   top: 0;
 }
 
-
-.ol-overviewmap:not(.ol-collapsed)  {
-    border: 1px solid black;
-  }
-
-
-.ol-overviewmap:not(.ol-collapsed) .ol-overviewmap-map {
-    border: none;
-    width: 200px;
-    height: 200px;
-  }
-
+.ol-overviewmap:not(.ol-collapsed) {
+  border: 1px solid black;
+  width: 200px;
+  height: 200px;
+}
 
 .ol-overviewmap .ol-overviewmap-box {
-    border: 2px solid red;
-  }
+  border: 2px solid red;
+}
 
-.ol-overviewmap:not(.ol-collapsed) button{
-    position: absolute;
-    bottom: auto;
-    right: auto;
-    left: 1px;
-    top: 1px;
-  }
+.ol-overviewmap:not(.ol-collapsed) button {
+  position: absolute;
+  bottom: auto;
+  right: auto;
+  left: 1px;
+  top: 1px;
+}

@@ -36,18 +36,57 @@ psqlQuery  += "FROM (SELECT 'Feature' As type, ";
 psqlQuery  += "ST_AsGeoJSON(CAST (lg.wkb_geometry AS geometry))::json As geometry, ";
 psqlQuery  += "row_to_json((SELECT l FROM ";
 psqlQuery  += "(SELECT name, address, description, timespan, category, distance) As l)) As properties ";
-psqlQuery  += "FROM public.history_2022_05_20 As lg) As f )  As fc;"
+psqlQuery  += "FROM public.history_2022_05_01 As lg) As f )  As fc;"
 
 
 
 var psqlQuery2= 'SELECT *'
-psqlQuery2 += ' FROM public.history_2022_05_20;'
+psqlQuery2 += ' FROM public.history_2022_05_01;'
+
+
+var psqlQuery3 ='';
+psqlQuery3  +=  "SELECT row_to_json(fc) as geojson ";
+psqlQuery3  += "FROM ( SELECT 'FeatureCollection' As type, array_to_json(array_agg(f)) As features "; 
+psqlQuery3  += "FROM (SELECT 'Feature' As type, "; 
+psqlQuery3  += "ST_AsGeoJSON(CAST (lg.wkb_geometry AS geometry))::json As geometry, ";
+psqlQuery3  += "row_to_json((SELECT l FROM ";
+psqlQuery3  += "(SELECT name, address, description, timespan, category, distance) As l)) As properties ";
+psqlQuery3  += "FROM public.history_%I"
+psqlQuery3  += " As lg) As f )  As fc;"
+
 
 
 
 app.get("/getGeoJSON", async (req, res) => {
   try {
     const geoJSONData = await pool.query(psqlQuery);
+    res.json(geoJSONData.rows);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+app.get("/getGeoJSON/:date", async (req, res) => {
+  try {
+    console.log(req.params)
+    const { date } = req.params;
+    // let tableName = "public.history_2022_05_20"
+
+    var psqlQuery3 =``;
+    psqlQuery3  +=  "SELECT row_to_json(fc) as geojson ";
+    psqlQuery3  += "FROM ( SELECT 'FeatureCollection' As type, array_to_json(array_agg(f)) As features "; 
+    psqlQuery3  += "FROM (SELECT 'Feature' As type, "; 
+    psqlQuery3  += "ST_AsGeoJSON(CAST (lg.wkb_geometry AS geometry))::json As geometry, ";
+    psqlQuery3  += "row_to_json((SELECT l FROM ";
+    psqlQuery3  += "(SELECT name, address, description, timespan, category, distance) As l)) As properties ";
+    psqlQuery3  += "FROM public.history_"
+    // psqlQuery3  += date.replace(/-/g, '_')
+    psqlQuery3  += `${date.replace(/-/g, '_')}`
+    psqlQuery3  += " As lg) As f )  As fc;"
+    // console.log(psqlQuery3)
+
+    const geoJSONData = await pool.query(psqlQuery3);
+    // console.log(geoJSONData)
     res.json(geoJSONData.rows);
   } catch (err) {
     console.error(err.message);

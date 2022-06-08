@@ -11,8 +11,8 @@ const OverviewMapControl = ({ source }) => {
     if (!map) return;
 
     let overviewMapControl = new OverviewMap({
-      className: 'ol-overviewmap',
-      //   view: new View({ projection: "EPSG:4326" }),
+      className: "ol-overviewmap",
+      view: new View({ projection: "EPSG:3857" }),
       layers: [
         new OLTileLayer({
           source: source,
