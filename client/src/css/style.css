@@ -3,7 +3,7 @@
 }
 
 html, body {
-  height: 100%;
+  height: 100vh;
   }
 
 body {
@@ -28,12 +28,14 @@ nav {
 }
 
 main{
-  margin: 2%;
+  margin:  0 2% 0  2%;
 }
 
 .main-content {
   display: flex;
   flex-direction: row;
+  column-gap: 5%;
+  height: 85%;
 
 }
 
@@ -44,5 +46,15 @@ footer {
   padding: 20px 36px;
 }
 
+.map-container{
+  background-color: aquamarine;
+  width: 70%;
+}
+
+.testdiv{
+  height: 100px;
+  width: 100px;
+  background-color: blueviolet;
+}
 
 

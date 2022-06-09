@@ -31,103 +31,23 @@ let styles = {
   }),
 };
 
-// const geojsonObject = require("../../data/GeoJSON/2022-05-20.json");
-// // let datum = document.getElementById("test-date").value
-// // console.log(datum)
 
-const port = 4000;
-// const geojsonObject2 = await fetch(`http://localhost:${port}/getGeoJSON`)
-//   .then((res) => {
-//     if (!res.ok) {
-//       throw new Error("Network response was not OK");
-//     }
-//     return res.json();
-//   })
-//   .then((data) => data[0]["geojson"])
-//   .catch((error) => {
-//     console.error("There has been a problem with your fetch operation:", error);
-//     return geojsonObject;
-//   });
-
-const MapOpenLayers = () => {
+const MapOpenLayers = (props) => {
   const [center, setCenter] = useState([13.035, 52.397]);
   const [zoom, setZoom] = useState(14);
-  const [showLayer1, setShowLayer1] = useState(true);
   const [showLayer2, setShowLayer2] = useState(true);
 
-  const [datum, setDatum] = React.useState("2022-05-01");
-
-  const [geoJSONObject, setGeoJSONObject] = useState(
-    require("../../data/GeoJSON/2022-05-20.json")
-  );
-
-  console.log(geoJSONObject);
-
-  // TODO: rerender on data change!
-
-  React.useEffect(() => {
-    fetch(`http://localhost:${port}/getGeoJSON/${datum}`)
-      .then((res) => {
-        setShowLayer1(prevState => !prevState)
-        console.log("fetched!");
-        if (!res.ok) {
-          throw new Error("Network response was not OK");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setGeoJSONObject(data[0]["geojson"])
-        setShowLayer1(prevState => !prevState)
-    })
-      .catch((error) => {
-        console.error(
-          "There has been a problem with your fetch operation:",
-          error
-        );
-      });
-  }, [datum]);
-
-  function handleDatum() {
-    let newDatum = document.getElementById("test-date").value;
-    setDatum(newDatum);
-  }
-
-  const doFetchDownload = () => {
-    fetch("https://jsonplaceholder.typicode.com/todos/1")
-      .then(resp => resp.blob())
-      .then(blob => {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.style.display = "none";
-        a.href = url;
-        // the filename you want
-        a.download = "todo-1.json";
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        alert("your file has downloaded!"); // or you know, something with better UX...
-      })
-      .catch(() => alert("oh no!"));
-  };
-  
+  console.log(props.data);
 
   return (
-    <div>
-      <label htmlFor="test-date">Tag wählen: </label>
-      <input
-        type="date"
-        name="datum"
-        id="test-date"
-        value={datum}
-        onChange={handleDatum}
-      />
+    <div className="map-container">
       <Map center={fromLonLat(center)} zoom={zoom}>
         <Layers>
           <TileLayer source={osm()} zIndex={0} />
-          {showLayer1 && (
+          {props.showLayer && (
             <VectorLayer
               source={vector({
-                features: new GeoJSON().readFeatures(geoJSONObject, {
+                features: new GeoJSON().readFeatures(props.data, {
                   featureProjection: get("EPSG:3857"),
                 }),
               })}
@@ -146,14 +66,6 @@ const MapOpenLayers = () => {
           <OverviewMapControl source={osm()} />
         </Controls>
       </Map>
-      <div>
-        <input
-          type="checkbox"
-          checked={showLayer1}
-          onChange={(event) => setShowLayer1(event.target.checked)}
-        />{" "}
-        Show Path
-      </div>
     </div>
   );
 };
