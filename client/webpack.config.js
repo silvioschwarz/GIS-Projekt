@@ -42,4 +42,9 @@ module.exports = {
   entry: {
     index: "./src/index",
   },
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
+  },
 };
