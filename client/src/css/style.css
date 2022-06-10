@@ -35,7 +35,7 @@ main{
   display: flex;
   flex-direction: row;
   column-gap: 5%;
-  height: 85%;
+  height: 75%;
 
 }
 
@@ -49,11 +49,12 @@ footer {
 .map-container{
   background-color: aquamarine;
   width: 70%;
+  max-height: 100%;
+
 }
 
-.testdiv{
-  height: 100px;
-  width: 100px;
+.statistics-container{
+  width: 20%;
   background-color: blueviolet;
 }
 

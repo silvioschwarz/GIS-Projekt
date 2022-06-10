@@ -11,16 +11,24 @@ export default function Statistics(props) {
   const featuresElements = features.map((feature) =>{
 
     let timespan = feature.properties.timespan;
-    // let parsed = JSON.parse(timespan)
-    // let durationFeature = timespan.end  -timespan.begin;
-    console.log(timespan)
-    // console.log(parsed)
+    let parsed = timespan.toString().split(",");
+    const [begin, end] = parsed.map((item) => {
+      return new Date(item.split('"')[3])
+    })
+    // let begin = parsed[2];
+    //  let end = parsed[4];
+    let durationFeature = end - begin;
+    // console.log([end])
+  
 
     distance += parseFloat(feature.properties.distance);
+    duration += parseFloat(durationFeature);
     return(
       <ul>
         <li>
-          {feature.properties.name}
+          Name: {feature.properties.name},Duration: 
+          {(durationFeature/1000/3600).toFixed(2)} h
+          {(durationFeature/1000/60).toFixed(2)} Min
         </li>
       </ul>
     )
@@ -28,9 +36,10 @@ export default function Statistics(props) {
   })
 
   return (
-    <div className="testdiv">
+    <div className="statistics-container">
         <h1>Statistics</h1>
-        <h3>Distance: {distance} m</h3>
+        <h3>Distance: {(distance/1000).toFixed(3)} km</h3>
+        <h3>Duration: {(duration/1000/3600).toFixed(2)} h</h3>
         {featuresElements}
     </div>
   );

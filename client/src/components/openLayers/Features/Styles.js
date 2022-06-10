@@ -19,6 +19,17 @@ export default {
       color: "rgba(0, 0, 255, 0.1)",
     }),
   }),
+
+  LineGreen: new Style({
+    stroke: new Stroke({
+      color: "green",
+      width: 1,
+    }),
+    fill: new Fill({
+      color: "rgba(0, 255, 0, 0.1)",
+    }),
+  }),
+
   Polygon: new Style({
     stroke: new Stroke({
       color: "blue",

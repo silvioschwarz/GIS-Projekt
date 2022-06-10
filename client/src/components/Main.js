@@ -7,6 +7,8 @@ export default function Main() {
   const port = 4000;
 
   const [showLayer1, setShowLayer1] = React.useState(true);
+  const [showLayer2, setShowLayer2] = React.useState(true);
+
 
 
   const [datum, setDatum] = React.useState("2022-05-01");
@@ -65,7 +67,7 @@ export default function Main() {
       </form> */}
 
       <div className="main-content">
-        <MapOpenLayers showLayer={showLayer1} data={geoJSONObject}/>
+        <MapOpenLayers showLayer1={showLayer1} showLayer2={showLayer2} data={geoJSONObject}/>
         <Statistics data={geoJSONObject}/>
       </div>
       <div>
@@ -74,7 +76,15 @@ export default function Main() {
           checked={showLayer1}
           onChange={(event) => setShowLayer1(event.target.checked)}
         />{" "}
-        Show Path
+        Show Path 1
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          checked={showLayer2}
+          onChange={(event) => setShowLayer2(event.target.checked)}
+        />{" "}
+        Show Path 2
       </div>
     </main>
   );
