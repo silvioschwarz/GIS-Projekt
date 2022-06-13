@@ -23,7 +23,7 @@ body {
 }
 
 nav {
-  height: 70px;
+  height: 50px;
   display: flex;
   padding: 20px 36px;
   background-color: darksalmon;
@@ -33,14 +33,14 @@ nav {
 
 main{
   margin:  0 2% 0  2%;
+  max-height: 800px;
 }
 
 .main-content {
   display: flex;
   flex-direction: row;
-  column-gap: 2%;
   height: 80%;
-
+  column-gap: 5%;
 }
 
 footer {
@@ -51,14 +51,21 @@ footer {
 }
 
 .map-container{
-  /* background-color: aquamarine; */
+  background-color: aquamarine;
   width: 75%;
   max-height: 100%;
 }
 
 .statistics-container{
-  width: 20%;
+  width: 30%;
   background-color: blueviolet;
+  max-height: 100%;
+  padding: 10px;
+}
+
+.statistics-stations{
+  max-height: 60%;
+  overflow-y: auto;
 }
 
 

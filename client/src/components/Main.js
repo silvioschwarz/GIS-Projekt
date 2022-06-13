@@ -18,6 +18,7 @@ export default function Main() {
 
   React.useEffect(() => {
     setShowLayer1(prevState => !prevState)
+    setShowLayer2(prevState => !prevState)
     fetch(`http://localhost:${port}/getGeoJSON/${datum}`)
       .then((res) => {
         console.log("fetched!");
@@ -28,6 +29,7 @@ export default function Main() {
       })
       .then((data) => {
         setShowLayer1(prevState => !prevState)
+        setShowLayer2(prevState => !prevState)
         setGeoJSONObject(data[0]["geojson"]);
       })
       .catch((error) => {

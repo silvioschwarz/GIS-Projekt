@@ -6,9 +6,12 @@ import { Circle as CircleStyle, Fill, Stroke, Style, Icon } from "ol/style";
 import { osm, vector } from "./Source";
 import { fromLonLat, get, transform } from "ol/proj";
 import GeoJSON from "ol/format/GeoJSON";
+import { getCenter } from "ol/extent";
 import {getArea, getLength} from 'ol/sphere';
 
 import { Controls, FullScreenControl, OverviewMapControl } from "./Controls";
+
+import * as turf from '@turf/turf'
 
 // attributation: https://github.com/mbrown3321/openlayers-react-map
 
@@ -43,7 +46,7 @@ let styles = {
 };
 
 const MapOpenLayers = (props) => {
-  const [center, setCenter] = useState([13.035, 52.4]);
+  const [center, setCenter] = useState([13.03, 52.38]);
   const [zoom, setZoom] = useState(14);
 
   // console.log("data passed to vectorlayer")
@@ -52,8 +55,10 @@ const MapOpenLayers = (props) => {
   const points = [];
   const lines = [];
 
+  // console.log(props.data)
+
   props.data.features.map((feature) => {
-    console.log(feature);
+    // console.log(feature);
 
     if (feature.geometry.type === "Point") {
       points.push(...feature.geometry.coordinates);
@@ -61,8 +66,8 @@ const MapOpenLayers = (props) => {
       lines.push(...feature.geometry.coordinates);
     }
   });
-  console.log("data from features");
-  console.log(lines)
+  // console.log("data from features");
+  // console.log(lines)
 
   let linesGeojson = {
     type:"Feature",
@@ -77,11 +82,21 @@ const MapOpenLayers = (props) => {
       featureProjection: get("EPSG:3857"),
     })
 
-    console.log(getLength(geojsonfeature[0].values_.geometry))
+    // console.log(getLength(geojsonfeature[0].values_.geometry))
+    React.useEffect(()=>{
+      setCenter( turf.centroid(props.data).geometry.coordinates)
+      // setCenter(getCenter(geojsonfeature[0].getGeometry().transform('EPSG:3857', 'EPSG:4326').getExtent()))
+    },[])
+
+//     var center1 = turf.center(props.data).geometry.coordinates
+//  console.log(center1)
+//  console.log(center)
+let geojsonExtent = geojsonfeature[0].getGeometry().getExtent();
+console.log(geojsonExtent)
   
   return (
     <div className="map-container">
-      <Map center={fromLonLat(center)} zoom={zoom}>
+      <Map center={fromLonLat(center)} zoom={zoom} extent={geojsonExtent}>
         <Layers>
           <TileLayer source={osm()} zIndex={0} />
           {props.showLayer1 && (

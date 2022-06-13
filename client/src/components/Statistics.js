@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function Statistics(props) {
-  console.log(props.data.features);
+  // console.log(props.data.features);
 
   const features = props.data.features;
   let distance = 0;
@@ -28,7 +28,7 @@ export default function Statistics(props) {
       moveDuration += parseFloat(durationFeature);
 
       return (
-        <div>
+        <div className="statistics-element">
           <h3>{feature.properties.name}</h3>
           <ul>
             <li>Distance: {feature.properties.distance / 1000} km</li>
@@ -48,8 +48,11 @@ export default function Statistics(props) {
     }
   });
 
+  // console.log({featuresElements})
+
   return (
     <div className="statistics-container">
+      <div className="statistics-info">
       <h1>Statistics</h1>
       <h3>Distance: {(distance / 1000).toFixed(3)} km</h3>
       {/* <h3>Duration: {(duration/1000/3600).toFixed(2)} h</h3> */}
@@ -61,7 +64,12 @@ export default function Statistics(props) {
         ).toFixed(2)}{" "}
         km/h
       </h3>
+    </div>
+    <h2>Stationen</h2>
+    <div className="statistics-stations">
       {featuresElements}
     </div>
+    </div>
+
   );
 }

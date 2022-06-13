@@ -5,7 +5,7 @@ import * as ol from "ol";
 // import {defaults as defaultControls} from 'ol/control';
 
 
-const Map = ({ children, zoom, center }) => {
+const Map = ({ children, zoom, center, extent }) => {
 	const mapRef = useRef();
 	const [map, setMap] = useState(null);
 
@@ -39,6 +39,16 @@ const Map = ({ children, zoom, center }) => {
 
 		map.getView().setCenter(center)
 	}, [center])
+
+	// extent change handler
+	useEffect(() => {
+		if (!map) return;
+
+		map.getView().fit(extent, {
+			size: map.getSize(),
+			padding: [150, 150, 150, 150],
+		  })
+	}, [extent])
 
 	return (
 		<MapContext.Provider value={{ map }}>
