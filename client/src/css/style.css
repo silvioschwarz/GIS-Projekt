@@ -6,6 +6,10 @@ html, body {
   height: 100vh;
   }
 
+h3,ul{
+  margin: 10px;
+}
+
 body {
   margin: 0;
   font-family: "Poppins";
@@ -34,8 +38,8 @@ main{
 .main-content {
   display: flex;
   flex-direction: row;
-  column-gap: 5%;
-  height: 75%;
+  column-gap: 2%;
+  height: 80%;
 
 }
 
@@ -47,10 +51,9 @@ footer {
 }
 
 .map-container{
-  background-color: aquamarine;
-  width: 70%;
+  /* background-color: aquamarine; */
+  width: 75%;
   max-height: 100%;
-
 }
 
 .statistics-container{

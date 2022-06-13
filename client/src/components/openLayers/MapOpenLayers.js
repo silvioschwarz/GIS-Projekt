@@ -9,7 +9,6 @@ import GeoJSON from "ol/format/GeoJSON";
 import {getArea, getLength} from 'ol/sphere';
 
 import { Controls, FullScreenControl, OverviewMapControl } from "./Controls";
-import { LineString } from "ol/geom";
 
 // attributation: https://github.com/mbrown3321/openlayers-react-map
 
@@ -44,7 +43,7 @@ let styles = {
 };
 
 const MapOpenLayers = (props) => {
-  const [center, setCenter] = useState([13.035, 52.397]);
+  const [center, setCenter] = useState([13.035, 52.4]);
   const [zoom, setZoom] = useState(14);
 
   // console.log("data passed to vectorlayer")
