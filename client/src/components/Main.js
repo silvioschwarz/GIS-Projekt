@@ -2,6 +2,7 @@ import React from "react";
 
 import MapOpenLayers from "./openLayers/MapOpenLayers";
 import Statistics from "./Statistics";
+import Heatmap from "./openLayers/Heatmap";
 
 export default function Main() {
   const port = 4000;
@@ -70,7 +71,10 @@ export default function Main() {
 
       <div className="main-content">
         <MapOpenLayers showLayer1={showLayer1} showLayer2={showLayer2} data={geoJSONObject}/>
+        <aside>
+        <Heatmap />
         <Statistics data={geoJSONObject}/>
+        </aside>
       </div>
       <div>
         <input

@@ -56,5 +56,8 @@ var s = 0;
 # Ausblick
 
 ## Urban Explores App
+## timeline feature
+## einzelne abschnitte auswählen
+## daten bereinigen
 ## Dockerize the shit
 i dont know why but its cool

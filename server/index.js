@@ -29,37 +29,78 @@ var port = 4000;
 
 //get all todos
 
-var psqlQuery ='';
-psqlQuery  +=  "SELECT row_to_json(fc) as geojson ";
-psqlQuery  += "FROM ( SELECT 'FeatureCollection' As type, array_to_json(array_agg(f)) As features "; 
-psqlQuery  += "FROM (SELECT 'Feature' As type, "; 
-psqlQuery  += "ST_AsGeoJSON(CAST (lg.wkb_geometry AS geometry))::json As geometry, ";
-psqlQuery  += "row_to_json((SELECT l FROM ";
-psqlQuery  += "(SELECT name, address, description, timespan, category, distance) As l)) As properties ";
-psqlQuery  += "FROM public.history_2022_05_01 As lg) As f )  As fc;"
+var psqlQuery = "";
+psqlQuery += "SELECT row_to_json(fc) as geojson ";
+psqlQuery +=
+  "FROM ( SELECT 'FeatureCollection' As type, array_to_json(array_agg(f)) As features ";
+psqlQuery += "FROM (SELECT 'Feature' As type, ";
+psqlQuery +=
+  "ST_AsGeoJSON(CAST (lg.wkb_geometry AS geometry))::json As geometry, ";
+psqlQuery += "row_to_json((SELECT l FROM ";
+psqlQuery +=
+  "(SELECT name, address, description, timespan, category, distance) As l)) As properties ";
+psqlQuery += "FROM public.history_2022_05_01 As lg) As f )  As fc;";
 
+var psqlQuery2 =
+  "SELECT ST_AsGeoJSON(CAST (wkb_geometry AS geometry))::json As geometry";
+psqlQuery2 += " FROM public.history_2022_05_01;";
 
+var psqlQuery3 = "";
+psqlQuery3 += "SELECT row_to_json(fc) as geojson ";
+psqlQuery3 +=
+  "FROM ( SELECT 'FeatureCollection' As type, array_to_json(array_agg(f)) As features ";
+psqlQuery3 += "FROM (SELECT 'Feature' As type, ";
+psqlQuery3 +=
+  "ST_AsGeoJSON(CAST (lg.wkb_geometry AS geometry))::json As geometry, ";
+psqlQuery3 += "row_to_json((SELECT l FROM ";
+psqlQuery3 +=
+  "(SELECT name, address, description, timespan, category, distance) As l)) As properties ";
+psqlQuery3 += "FROM public.history_%I";
+psqlQuery3 += " As lg) As f )  As fc;";
 
-var psqlQuery2= 'SELECT *'
-psqlQuery2 += ' FROM public.history_2022_05_01;'
+var psqlQuery4 = "";
+// psqlQuery4 += " UNION "
+// psqlQuery4 += "SELECT wkb_geometry FROM public.history_2022_05_02"
+// psqlQuery4 += " UNION "
+// psqlQuery4 += "SELECT wkb_geometry FROM public.history_2022_05_03"
 
+psqlQuery4 += "SELECT tablename FROM pg_tables WHERE schemaname = 'public';";
 
-var psqlQuery3 ='';
-psqlQuery3  +=  "SELECT row_to_json(fc) as geojson ";
-psqlQuery3  += "FROM ( SELECT 'FeatureCollection' As type, array_to_json(array_agg(f)) As features "; 
-psqlQuery3  += "FROM (SELECT 'Feature' As type, "; 
-psqlQuery3  += "ST_AsGeoJSON(CAST (lg.wkb_geometry AS geometry))::json As geometry, ";
-psqlQuery3  += "row_to_json((SELECT l FROM ";
-psqlQuery3  += "(SELECT name, address, description, timespan, category, distance) As l)) As properties ";
-psqlQuery3  += "FROM public.history_%I"
-psqlQuery3  += " As lg) As f )  As fc;"
-
-
-
+// let sqlAbfrage = '';
+// ['table1', 'table2', 'table3'].forEach((tableName) => {
+// if (tableName === 'spatial_ref_sys') {
+// continue;
+// }
+// sqlAbfrage += 'SELECT wkb_geometry FROM ' + tableName + ' UNION ';
+// });
+// sqlAbfrage = sqlAbfrage.slice(0, -7);
 
 app.get("/getGeoJSON", async (req, res) => {
   try {
-    const geoJSONData = await pool.query(psqlQuery);
+    let sqlAbfrage =
+      "SELECT 'FeatureCollection' As type, array_to_json(array_agg(f)) As features FROM (";
+    // let sqlAbfrage = "";
+
+    const tableNames = await pool.query(
+      "SELECT tablename FROM pg_tables WHERE schemaname = 'public';"
+    );
+
+    tableNames.rows.map((table) => {
+      let tableName = table.tablename;
+      if (tableName === "spatial_ref_sys") {
+        sqlAbfrage += "";
+      } else {
+        sqlAbfrage +=
+          "SELECT 'Feature' As type, ST_AsGeoJSON(CAST (wkb_geometry AS geometry))::jsonb As geometry FROM " +
+          tableName;
+        sqlAbfrage += " UNION ";
+      }
+    });
+    sqlAbfrage = sqlAbfrage.slice(0, -7);
+    sqlAbfrage += ") As f;";
+
+    console.log(sqlAbfrage);
+    const geoJSONData = await pool.query(sqlAbfrage);
     res.json(geoJSONData.rows);
   } catch (err) {
     console.error(err.message);
@@ -68,21 +109,24 @@ app.get("/getGeoJSON", async (req, res) => {
 
 app.get("/getGeoJSON/:date", async (req, res) => {
   try {
-    console.log(req.params)
+    console.log(req.params);
     const { date } = req.params;
     // let tableName = "public.history_2022_05_20"
 
-    var psqlQuery3 =``;
-    psqlQuery3  +=  "SELECT row_to_json(fc) as geojson ";
-    psqlQuery3  += "FROM ( SELECT 'FeatureCollection' As type, array_to_json(array_agg(f)) As features "; 
-    psqlQuery3  += "FROM (SELECT 'Feature' As type, "; 
-    psqlQuery3  += "ST_AsGeoJSON(CAST (lg.wkb_geometry AS geometry))::json As geometry, ";
-    psqlQuery3  += "row_to_json((SELECT l FROM ";
-    psqlQuery3  += "(SELECT name, address, description, timespan, category, distance) As l)) As properties ";
-    psqlQuery3  += "FROM public.history_"
+    var psqlQuery3 = ``;
+    psqlQuery3 += "SELECT row_to_json(fc) as geojson ";
+    psqlQuery3 +=
+      "FROM ( SELECT 'FeatureCollection' As type, array_to_json(array_agg(f)) As features ";
+    psqlQuery3 += "FROM (SELECT 'Feature' As type, ";
+    psqlQuery3 +=
+      "ST_AsGeoJSON(CAST (lg.wkb_geometry AS geometry))::json As geometry, ";
+    psqlQuery3 += "row_to_json((SELECT l FROM ";
+    psqlQuery3 +=
+      "(SELECT name, description, timespan, category, distance) As l)) As properties ";
+    psqlQuery3 += "FROM public.history_";
     // psqlQuery3  += date.replace(/-/g, '_')
-    psqlQuery3  += `${date.replace(/-/g, '_')}`
-    psqlQuery3  += " As lg) As f )  As fc;"
+    psqlQuery3 += `${date.replace(/-/g, "_")}`;
+    psqlQuery3 += " As lg) As f )  As fc;";
     // console.log(psqlQuery3)
 
     const geoJSONData = await pool.query(psqlQuery3);
