@@ -9,6 +9,8 @@ export default function Main() {
 
   const [showLayer1, setShowLayer1] = React.useState(true);
   const [showLayer2, setShowLayer2] = React.useState(true);
+  const [showLayer3, setShowLayer3] = React.useState(true);
+
 
 
 
@@ -20,6 +22,7 @@ export default function Main() {
   React.useEffect(() => {
     setShowLayer1(prevState => !prevState)
     setShowLayer2(prevState => !prevState)
+    setShowLayer3(prevState => !prevState)
     fetch(`http://localhost:${port}/getGeoJSON/${datum}`)
       .then((res) => {
         console.log("fetched!");
@@ -31,6 +34,7 @@ export default function Main() {
       .then((data) => {
         setShowLayer1(prevState => !prevState)
         setShowLayer2(prevState => !prevState)
+        setShowLayer3(prevState => !prevState)
         setGeoJSONObject(data[0]["geojson"]);
       })
       .catch((error) => {
@@ -72,7 +76,7 @@ export default function Main() {
       <div className="main-content">
         <MapOpenLayers showLayer1={showLayer1} showLayer2={showLayer2} data={geoJSONObject}/>
         <aside>
-        <Heatmap />
+        <Heatmap showLayer3={showLayer3} data={geoJSONObject}/>
         <Statistics data={geoJSONObject}/>
         </aside>
       </div>
@@ -91,6 +95,14 @@ export default function Main() {
           onChange={(event) => setShowLayer2(event.target.checked)}
         />{" "}
         Show Path 2
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          checked={showLayer3}
+          onChange={(event) => setShowLayer3(event.target.checked)}
+        />{" "}
+        Show heatmap
       </div>
     </main>
   );

@@ -99,7 +99,7 @@ app.get("/getGeoJSON", async (req, res) => {
     sqlAbfrage = sqlAbfrage.slice(0, -7);
     sqlAbfrage += ") As f;";
 
-    console.log(sqlAbfrage);
+    // console.log(sqlAbfrage);
     const geoJSONData = await pool.query(sqlAbfrage);
     res.json(geoJSONData.rows);
   } catch (err) {

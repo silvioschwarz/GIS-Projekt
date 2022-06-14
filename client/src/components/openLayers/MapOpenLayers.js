@@ -92,7 +92,7 @@ const MapOpenLayers = (props) => {
 //  console.log(center1)
 //  console.log(center)
 let geojsonExtent = geojsonfeature[0].getGeometry().getExtent();
-console.log(geojsonExtent)
+// console.log(geojsonExtent)
   
   return (
     <div className="map-container">
