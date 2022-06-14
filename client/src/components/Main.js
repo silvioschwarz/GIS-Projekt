@@ -76,7 +76,7 @@ export default function Main() {
       <div className="main-content">
         <MapOpenLayers showLayer1={showLayer1} showLayer2={showLayer2} data={geoJSONObject}/>
         <aside>
-        <Heatmap showLayer3={showLayer3} data={geoJSONObject}/>
+        { showLayer3 && (<Heatmap showLayer3={showLayer3} data={geoJSONObject}/>)}
         <Statistics data={geoJSONObject}/>
         </aside>
       </div>

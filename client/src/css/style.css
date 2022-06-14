@@ -39,7 +39,7 @@ main{
 .main-content {
   display: flex;
   flex-direction: row;
-  height: 80%;
+  height: 90%;
   column-gap: 2%;
 }
 

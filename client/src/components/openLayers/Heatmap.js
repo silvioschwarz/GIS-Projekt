@@ -227,7 +227,7 @@ const Heatmap = (props) => {
       <Map center={fromLonLat(center)} zoom={zoom} extent={geojsonExtent}>
         <Layers>
           <TileLayer source={osm()} zIndex={0} />
-          { props.showLayer3 && (
+          
             <HeatmapLayer
               source={heatmapVector}
               blur={9}
@@ -236,8 +236,7 @@ const Heatmap = (props) => {
                 return 10;
               }}
               //   style={styles.Line}
-            />)
-          }
+            />
         </Layers>
         <Controls>
           <FullScreenControl />
