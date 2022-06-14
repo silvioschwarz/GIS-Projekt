@@ -1,0 +1,12 @@
+\contentsline {section}{\numberline {1}Einleitung}{3}{section.1}%
+\contentsline {section}{\numberline {2}Server}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Express Server}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}PostgreSQL Datenbank}{4}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Client}{4}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Struktur: Navbar, Main, Footer}{4}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Main Komponenten}{4}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Map}{4}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Statistics}{4}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.3}Heatmap}{4}{subsubsection.3.2.3}%
+\contentsline {section}{\numberline {4}Probleme}{4}{section.4}%
+\contentsline {section}{\numberline {5}Ausblick}{4}{section.5}%
